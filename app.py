@@ -8,7 +8,7 @@ OPENAI_API_KEY = os.getenv("OPENAI_API_KEY")
 client = OpenAI(api_key = OPENAI_API_KEY)
 
 def request_rep(user_input):
-    prompt = user_input + ". Can you recommend me 5 wines specifying the wineries?"
+    prompt = user_input + ". Can you recommend me 3 foods specifying the restaurant chains?"
     completion = client.chat.completions.create(
     model="gpt-3.5-turbo",
     messages=[
@@ -19,12 +19,12 @@ def request_rep(user_input):
     return completion.choices[0].message.content
 
 
-def parse_wine(response):
+def parse_food(response):
     '''
     This function parses a text response from chatGPT and 
-    returns a list of wine names and wineries
+    returns a list of food names and restaurants
     input: a string of chatGPT response
-    output: a list of recommended wines
+    output: a list of recommended foods
     '''
     sentences = [x.split(" ") for x in response.split("\n")]
     output = list()
@@ -63,7 +63,7 @@ def home():
             return render_template("home.html")
         else:
             GPTresponse = request_rep(feeling)
-            answer = parse_wine(GPTresponse)
+            answer = parse_food(GPTresponse)
             return render_template("response.html", gpt_response = answer)
     else:
         return render_template("home.html")
