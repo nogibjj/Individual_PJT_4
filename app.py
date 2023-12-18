@@ -7,6 +7,7 @@ load_dotenv()
 OPENAI_API_KEY = os.getenv("OPENAI_API_KEY")
 client = OpenAI(api_key=OPENAI_API_KEY)
 
+
 def request_rep(user_input):
     prompt = (
         f"{user_input}. Can you recommend me 3 foods specifying the restaurant chains?"
@@ -16,6 +17,7 @@ def request_rep(user_input):
         messages=[{"role": "user", "content": prompt}],
     )
     return completion.choices[0].message.content
+
 
 def parse_food(response):
     sentences = [x.split(" ") for x in response.split("\n")]
@@ -43,7 +45,9 @@ def parse_food(response):
 
     return output
 
+
 app = Flask(__name__)
+
 
 @app.route("/", methods=["POST", "GET"])
 def home():
@@ -58,6 +62,7 @@ def home():
             return render_template("response.html", gpt_response=answer)
     else:
         return render_template("home.html")
+
 
 if __name__ == "__main__":
     app.run(host="0.0.0.0", port=9000)
