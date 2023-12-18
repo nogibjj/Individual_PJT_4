@@ -30,18 +30,14 @@ def parse_food(response):
             continue
         else:
             for i in range(len(sent)):
-                if sent[i] in (":", "-") or sent[i][-1] == ":":
+                if sent[i] in (":", "-") or (sent[i] and sent[i][-1] == ":"):
                     split_ind = i
+                    break
 
-            sent_start = sent[0][:-1]
-
-            try:
-                sent_start = int(sent_start)
-            except ValueError:
-                split_ind = None
-
-        if split_ind is not None:
-            output.append(" ".join(sent[:split_ind]))
+            if split_ind is not None:
+                output.append(
+                    (" ".join(sent[:split_ind]), " ".join(sent[split_ind + 1 :]))
+                )
 
     return output
 
