@@ -8,19 +8,19 @@ OPENAI_API_KEY = os.getenv("OPENAI_API_KEY")
 client = OpenAI(api_key=OPENAI_API_KEY)
 
 def request_rep(user_input):
-    prompt = f"{user_input}. Can you recommend me 3 foods specifying the restaurant chains?"
+    prompt = (
+        f"{user_input}. Can you recommend me 3 foods specifying the restaurant chains?"
+    )
     completion = client.chat.completions.create(
         model="gpt-3.5-turbo",
-        messages=[
-            {"role": "user", "content": prompt}
-        ]
+        messages=[{"role": "user", "content": prompt}],
     )
     return completion.choices[0].message.content
 
 def parse_food(response):
     sentences = [x.split(" ") for x in response.split("\n")]
     output = []
-    
+
     for sent in sentences:
         split_ind = None
 
@@ -49,7 +49,7 @@ app = Flask(__name__)
 def home():
     if request.method == "POST":
         feeling = request.form.get("feeling", "")
-        
+
         if not feeling:
             return render_template("home.html")
         else:
