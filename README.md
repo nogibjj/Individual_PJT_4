@@ -1,3 +1,5 @@
+[![Continuous Integration Quality Check](https://github.com/nogibjj/Individual_PJT_4/actions/workflows/cicd.yml/badge.svg)](https://github.com/nogibjj/Individual_PJT_4/actions/workflows/cicd.yml)
+
 # Individual Project 4: Deploying a Food Recommendation Service on Azure
 ## Overview
 This repository demonstrates the deployment process of a web-based food recommendation service using Azure App Service. The user interface allows users to input preferences, moods, or occasions to receive personalized food recommendations, along with a link for food delivery via DoorDash.
